@@ -1,5 +1,10 @@
 var gulp = require('gulp');
-// var args = require('yargs').argv;
+var jshint = require('gulp-jshint');
+var jscs = require('gulp-jscs');
+var util = require('gulp-util');
+var gulpprint = require('gulp-print').default;
+var gulpif = require('gulp-if');
+var args = require('yargs').argv;
 var config = require('./gulp.config')();
 var del = require('del');
 var $ = require('gulp-load-plugins')({lazy: true});
@@ -8,17 +13,20 @@ gulp.task('hello-world', function() {
   console.log('First gulp task!');
 });
 
+
+// gulp vet
+// gulp vet --verbose
 gulp.task('vet', function() {
   // log('Analyzing sorce with JSHint and JSCS');
   console.log('Analyzing sorce with JSHint and JSCS');
 
     return gulp
       .src(config.alljs)
-      .pipe($.if(args.verbose, $.print()))
+      .pipe($.if(args.verbose, $.print.default()))
       .pipe($.jscs())
       .pipe($.jshint())
       .pipe($.jshint.reporter('jshint-stylish', {verbose: true}))
-      .pipe($.jshint.reporter('fail'))
+      .pipe($.jshint.reporter('fail'));
 });
 
 gulp.task('styles', ['clean-styles'], function() {
@@ -32,7 +40,8 @@ gulp.task('styles', ['clean-styles'], function() {
     .pipe(gulp.dest(config.temp));
 });
 
-gulp.task('clean-styles', function() { // there's no stream in here so it's not really getting the screen back, so use the callback function
+gulp.task('clean-styles', function() { 
+    // there's no stream in here so it's not really getting the screen back, so use the callback function
   var files = config.temp + '**/*.css';
   clean(files);
 });

@@ -3,7 +3,7 @@ module.exports = function() {
 
   var config = {
     temp: './.tmp/',
-
+    // all js to vet
     alljs: [
       './src/**/*.js',
       './*.js'

@@ -4,26 +4,27 @@
 2. npm i --save-dev gulp
   gulp hello-world
 
-npm i jshint gulp-jshint --save-dev
-npm i gulp-jscs --save-dev
+Code Analisys Witn JSHint and JSCS
+3. npm i jshint gulp-jshint --save-dev
+    npm i gulp-jscs --save-dev
+    gulp vet
+    
+4. npm i --save-dev jshint-stylish
 
-npm i --save-dev jshint-stylish
-
-npm i --save-dev gulp-util
+5. npm i --save-dev gulp-util
 npm WARN deprecated gulp-util@3.0.8: gulp-util is deprecated - replace it, following the guidelines at https://medium.com/gulpjs/gulp-util-ca3b1f9f9ac5
 
-npm i --save-dev gulp-print
+6. npm i --save-dev gulp-print
 
-npm i --save-dev gulp-if yargs
+7. npm i --save-dev gulp-if yargs
 
+8. npm i --save-dev gulp-load-plugins
 
-
-3. npm i --save-dev gulp-load-plugins
-4. 
-5. npm i --save-dev gulp-less gulp-autoprefixer
+CSS Compilation
+9. npm i --save-dev gulp-less gulp-autoprefixer
   gulp styles 
 
-6. npm i --save-dev del
+10. npm i --save-dev del
   gulp clean-styles
 
-7. 
+11. 

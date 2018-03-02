@@ -22,9 +22,23 @@ npm WARN deprecated gulp-util@3.0.8: gulp-util is deprecated - replace it, follo
 
 CSS Compilation
 9. npm i --save-dev gulp-less gulp-autoprefixer
+    npm i --save-dev gulp-sass
+    npm i --save-dev gulp-sourcemaps // we have to install gulp-sourcemaps in order to generate sourcemaps for sass files
   gulp styles 
 
 10. npm i --save-dev del
   gulp clean-styles
 
 11. 
+
+
+
+
+
+
+
+from https://www.sitepoint.com/premium/courses/build-a-responsive-web-site-from-scratch-2929/lesson/3/step/3
+npm i --save-dev imagemin // optimize gif, jpg, png and svg images
+
+Live Reload or Browser Sync
+npm i --save-dev browser-sync

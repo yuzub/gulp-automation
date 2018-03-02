@@ -9,6 +9,13 @@ var util = require('gulp-util');
 var gulpprint = require('gulp-print').default;
 var gulpif = require('gulp-if');
 
+var sass = require('gulp-sass');
+var sourcemaps = require('gulp-sourcemaps');
+var autoprefixer = require('gulp-autoprefixer');
+var imagemin = require('gulp-imagemin');
+
+var browserSync = require('browser-sync').create(); // create a browser sync server
+
 var config = require('./gulp.config')();
 
 var $ = require('gulp-load-plugins')({lazy: true});
@@ -32,7 +39,17 @@ gulp.task('vet', function() {
       .pipe($.jshint.reporter('fail'));
 });
 
-gulp.task('styles', ['clean-styles'], function() {
+gulp.task('sass-styles', function() {
+  return gulp.src('src/client/styles/**/*.scss')
+    .pipe(sourcemaps.init())
+    .pipe(sass({outputStyle: 'compressed'}).on('error', sass.logError))
+    .pipe(autoprefixer({browsers: ['last 2 versions']}))
+    .pipe(sourcemaps.write('./maps'))
+    .pipe(gulp.dest('dist/styles'))
+    .pipe(browserSync.stream());
+});
+
+gulp.task('less-styles', ['clean-styles'], function() {
   log('Compiling LESS --> CSS');
 
   return gulp
@@ -50,7 +67,31 @@ gulp.task('clean-styles', function(done) {
 });
 
 gulp.task('less-watcher', function() {
-  gulp.watch([config.less], ['styles']);
+  gulp.watch([config.less], ['less-styles']);
+});
+
+gulp.task('images', function() {
+  return gulp.src('src/client/images/*')
+    .pipe(imagemin())
+    .pipe(gulp.dest('dist/images'));
+});
+
+gulp.task('copy', function() {
+  return gulp.src('src/client/*.html')
+    .pipe(gulp.dest('dist'));
+});
+
+gulp.task('browserSync', function() {
+  browserSync.init({
+    server: {
+      baseDir: 'dist'
+    }
+  });
+});
+
+gulp.task('sass-watcher', ['browserSync', 'sass-styles'], function() {
+  gulp.watch('src/client/styles/**/*.scss', ['sass-styles']);
+  gulp.watch('src/client/*.html', ['copy']);
 });
 
 //////////////////////
